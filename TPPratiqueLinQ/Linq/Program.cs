@@ -11,7 +11,6 @@ namespace Linq
         static void Main(string[] args)
         {
             Context = new FootballContext();
-            //voici quelques exemples d'interrogation de données :
             System.Console.WriteLine("===================== en standard ci-dessous les équipes de la conférence 1");
 
             var resultat1 = ObtenirEquipesParConference(1);
@@ -24,15 +23,26 @@ namespace Linq
             foreach (var equipe in resultat2)
                 System.Console.WriteLine(equipe.Nom + " " + equipe.IdVille);
 
+            System.Console.WriteLine("===================== en standard ci-dessous nombre d'équipe par état =2");
             var resultat3 = ObtenirNombreEquipesParEtat(2);
-            //Exercie d'afficher le contenu (remarquer le join)
-            //Exercice d'exécuter en lambda ObtenirNombreEquipesParEtat(2)
+             System.Console.WriteLine(resultat3);
 
-            //Exercice: obtenir en LINQ standard et afficher
-            //var resultat3 = ObtenirListeEquipesCreeesAvant1950();
+            System.Console.WriteLine("===================== en lambda ci-dessous nombre d'équipe par état =2");
+            var resultat4 = ObtenirNombreEquipesParEtatLambda(2);
+            System.Console.WriteLine(resultat4);
 
-            //Exercice: obtenir en LINQ lambda et afficher
-            //var resultat4 = ObtenirListeEquipesCreeesAvant1950();
+            System.Console.WriteLine("===================== en standard ci-dessous la liste des equipes crees avant 1950");
+            var resultat5 = ObtenirListeEquipesCreeesAvant1950(1950);
+            foreach (var equipe in resultat5) {
+                System.Console.WriteLine(equipe.Nom + " a été créée en " + equipe.AnneeFondation);
+            }
+               
+
+            System.Console.WriteLine("===================== en lambda ci-dessous la liste des equipes crees avant 1950");
+            var resultat6 = ObtenirListeEquipesCreeesAvant1950Lambda(1950);
+            foreach (var equipe in resultat6)
+                System.Console.WriteLine(equipe.Nom + " a été créée en " + equipe.AnneeFondation);
+
         }
 
         // obtenir la liste des équipes dont l'identifiant de conférence correspond à celui reçu en paramètre
@@ -54,15 +64,24 @@ namespace Linq
             return (from equipe in Context.Equipes
                     where equipe.IdVilleNavigation.IdEtat == idEtat
                     select equipe).Count();
+            // les résultats sont triés en ordre croissant de nom d'équipe
+        }
+        static int ObtenirNombreEquipesParEtatLambda(int idEtat)
+        {
+            return Context.Equipes.Count(e => e.IdVilleNavigation.IdEtat == idEtat);
+        }
+        static IQueryable<Equipe> ObtenirListeEquipesCreeesAvant1950(int anneeFondation)
+        {
+            return from equipe in Context.Equipes
+                   where equipe.AnneeFondation < anneeFondation orderby equipe.Nom
+                   select equipe;
+        }
 
-            //même chose en lambda :
-            //return Context.Equipes
-            //    .Count(e => e.IdVilleNavigation.IdEtat == idEtat);
+       static IQueryable<Equipe> ObtenirListeEquipesCreeesAvant1950Lambda(int anneeFondation)
+        {
+            return Context.Equipes.Where(e => e.AnneeFondation < anneeFondation).OrderBy(e =>e.Nom);
 
         }
-        // obtenir la liste des équipes dont l'année de fondation est inférieure à 1950
-        // les résultats sont triés en ordre croissant de nom d'équipe
 
-        
     }
 }
