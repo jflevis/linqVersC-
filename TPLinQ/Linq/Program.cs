@@ -11,6 +11,7 @@ namespace Linq
         static void Main(string[] args)
         {
             Context = new FootballContext();
+
             System.Console.WriteLine("===================== en standard ci-dessous les équipes de la conférence 1");
 
             var resultat1 = ObtenirEquipesParConference(1);
@@ -44,6 +45,8 @@ namespace Linq
                 System.Console.WriteLine(equipe.Nom + " a été créée en " + equipe.AnneeFondation);
 
         }
+
+   
 
         // obtenir la liste des équipes dont l'identifiant de conférence correspond à celui reçu en paramètre
         static IQueryable<Equipe> ObtenirEquipesParConference(int idConference)
