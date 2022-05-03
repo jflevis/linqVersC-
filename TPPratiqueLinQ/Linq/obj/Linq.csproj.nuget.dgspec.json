@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2063738\\Downloads\\LinqExempleAvec ScriptBD\\Linq\\Linq.csproj": {}
+    "C:\\Users\\2063738\\Downloads\\linqVersC-\\TPPratiqueLinQ\\Linq\\Linq.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2063738\\Downloads\\LinqExempleAvec ScriptBD\\Linq\\Linq.csproj": {
+    "C:\\Users\\2063738\\Downloads\\linqVersC-\\TPPratiqueLinQ\\Linq\\Linq.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2063738\\Downloads\\LinqExempleAvec ScriptBD\\Linq\\Linq.csproj",
+        "projectUniqueName": "C:\\Users\\2063738\\Downloads\\linqVersC-\\TPPratiqueLinQ\\Linq\\Linq.csproj",
         "projectName": "Linq",
-        "projectPath": "C:\\Users\\2063738\\Downloads\\LinqExempleAvec ScriptBD\\Linq\\Linq.csproj",
+        "projectPath": "C:\\Users\\2063738\\Downloads\\linqVersC-\\TPPratiqueLinQ\\Linq\\Linq.csproj",
         "packagesPath": "C:\\Users\\2063738\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2063738\\Downloads\\LinqExempleAvec ScriptBD\\Linq\\obj\\",
+        "outputPath": "C:\\Users\\2063738\\Downloads\\linqVersC-\\TPPratiqueLinQ\\Linq\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

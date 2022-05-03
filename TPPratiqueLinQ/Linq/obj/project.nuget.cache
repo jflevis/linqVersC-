@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3Ydk6NZDWu6pRDskzkZFDLrAz56cXPycqOFwFW+qmWwKoWCRI88tU4I5fQQ4S2LbgEbJvaFYB+V5mRArVMJVGA==",
+  "dgSpecHash": "d/BqH2vp8ULFqFelxDGubDiMBu+ZjklXKOf84jnzDW4OT2yxVEFEzr7o0SbNwzLaiGqErPJ+fdI54byf4gJyIA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\2063738\\Downloads\\LinqExempleAvec ScriptBD\\Linq\\Linq.csproj",
+  "projectFilePath": "C:\\Users\\2063738\\Downloads\\linqVersC-\\TPPratiqueLinQ\\Linq\\Linq.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\2063738\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\2063738\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

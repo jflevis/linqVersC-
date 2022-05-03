@@ -12,15 +12,19 @@ namespace Linq
         {
             Context = new FootballContext();
             //voici quelques exemples d'interrogation de données :
- 
-            var resultat1 = ObtenirEquipesParConference(1);
+            System.Console.WriteLine("===================== en standard ci-dessous les équipes de la conférence 1");
 
+            var resultat1 = ObtenirEquipesParConference(1);
             foreach (var equipe in resultat1)
                 System.Console.WriteLine(equipe.Nom + " " + equipe.IdVille);
+            System.Console.WriteLine("===================== en lambda ci-dessous les équipes de la conférence 1");
 
             //Exercice d'exécuter en lambda ObtenirEquipesParConference(1);
+           var resultat2 = ObtenirEquipesParConferenceLambda(1);
+            foreach (var equipe in resultat2)
+                System.Console.WriteLine(equipe.Nom + " " + equipe.IdVille);
 
-            var resultat2 = ObtenirNombreEquipesParEtat(2);
+            var resultat3 = ObtenirNombreEquipesParEtat(2);
             //Exercie d'afficher le contenu (remarquer le join)
             //Exercice d'exécuter en lambda ObtenirNombreEquipesParEtat(2)
 
@@ -37,12 +41,11 @@ namespace Linq
              return from equipe in Context.Equipes
                     where equipe.IdConference == idConference
                     select equipe;
-
-            //même chose en lambda :
-            //return Context.Equipes.Where(e => e.IdConference == idConference);
- 
-
-        
+        }
+        //même chose en lambda :
+        private static IQueryable<Equipe> ObtenirEquipesParConferenceLambda(int IdConference)
+        {
+            return Context.Equipes.Where(e => e.IdConference == IdConference);
         }
 
         //obtenir la liste des équipes dont la ville  est dans l'état passé en paramètre
