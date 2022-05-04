@@ -198,6 +198,20 @@ INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Con
 GO
 INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (9, N'49ers', 1965, 8, 2, N'SF')
 GO
+INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (10, N'SeaHawks', 1968, 9, 2, N'Hawks')
+GO
+INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (11, N'Falcons', 1960, 10, 2, N'Falc')
+GO
+INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (12, N'Colts', 1964, 11, 2, N'Colts')
+GO
+INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (13, N'Raven', 1966, 12, 2, N'Rav')
+GO
+INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (14, N'Lion', 1960, 13, 2, N'Lion')
+GO
+INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (15, N'Patriots', 1960, 14, 2, N'Pats')
+GO
+INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (16, N'Chargers', 1972, 15, 2, N'LA')
+GO
 SET IDENTITY_INSERT [dbo].[Equipe] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Etat] ON 
@@ -216,6 +230,19 @@ INSERT [dbo].[Etat] ([id_Etat], [Nom]) VALUES (6, N'Pensylvanie')
 GO
 INSERT [dbo].[Etat] ([id_Etat], [Nom]) VALUES (7, N'Californie')
 GO
+INSERT [dbo].[Etat] ([id_Etat], [Nom]) VALUES (8, N'Washington')
+GO
+INSERT [dbo].[Etat] ([id_Etat], [Nom]) VALUES (9, N'Georgie')
+GO
+INSERT [dbo].[Etat] ([id_Etat], [Nom]) VALUES (10, N'Indiana')
+GO
+INSERT [dbo].[Etat] ([id_Etat], [Nom]) VALUES (11, N'Maryland')
+GO
+INSERT [dbo].[Etat] ([id_Etat], [Nom]) VALUES (12, N'Michigan')
+GO
+INSERT [dbo].[Etat] ([id_Etat], [Nom]) VALUES (13, N'Nouvelle-Angleterre')
+GO
+
 SET IDENTITY_INSERT [dbo].[Etat] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Joueur] ON 
@@ -230,8 +257,35 @@ INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (4,
 GO
 INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (6, N'Cutler', N'Jay', CAST(N'1983-04-29' AS Date))
 GO
-INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (7, N'Anderson', N'Mark', CAST(N'1983-05-26' AS Date))
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (7, N'Lafleur', N'Mark', CAST(N'1983-01-26' AS Date))
 GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (8, N'Denis', N'Danny', CAST(N'1983-02-26' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (9, N'Petters', N'Bill', CAST(N'1985-05-27' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (10, N'Paterson', N'Nick', CAST(N'1982-3-20' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (11, N'Johnson', N'Mitch', CAST(N'1983-02-23' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (12, N'Hoggins', N'Mike', CAST(N'1984-05-05' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (13, N'Higgins', N'BIll', CAST(N'1983-05-16' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (14, N'Bletso', N'Tony', CAST(N'1982-05-12' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (15, N'Martin', N'Bouch', CAST(N'1986-06-19' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (16, N'Blais', N'Denis', CAST(N'1985-06-26' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (17, N'Bouchard', N'Michel', CAST(N'1982-01-26' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (18, N'Cavillo', N'Antony', CAST(N'1985-03-26' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (19, N'Vercheval', N'Pierre', CAST(N'1984-02-26' AS Date))
+GO
+INSERT [dbo].[Joueur] ([id_Joueur], [Nom], [Prenom], [DateNaissance]) VALUES (20, N'Boulet', N'Jerry', CAST(N'1983-01-26' AS Date))
+GO
+
 SET IDENTITY_INSERT [dbo].[Joueur] OFF
 GO
 INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (1, 1, 2009, NULL)
@@ -252,6 +306,42 @@ INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) V
 GO
 INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (7, 5, 2012, NULL)
 GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (8, 9, 2008, 2012)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (9, 9, 2013, 2015)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (10, 10, 2013, 2015)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (11, 12, 2009, 2011)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (11, 15, 2011, NULL)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (12, 10, 2011, NULL)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (13, 13, 2011, NULL)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (14, 14, 2011, 2013)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (15, 15, 2011, NULL)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (16, 9, 2012, NULL)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (17, 4, 2008, NULL)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (18, 5, 2010, 2012)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (18, 10, 2012, 2019)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (19, 6, 2011, 2018)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (20, 7, 2014, NULL)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (8, 14, 2012, 2019)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (10, 11, 2015, NULL)
+GO
+INSERT [dbo].[JoueurEquipe] ([id_Joueur], [id_Equipe], [DateDebut], [DateFin]) VALUES (14, 12, 2013, NULL)
+GO
 SET IDENTITY_INSERT [dbo].[Ville] ON 
 GO
 INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (1, N'Kansas City', 1, 480448, 1853)
@@ -268,7 +358,21 @@ INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondatio
 GO
 INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (7, N'Philadelphie', 6, 100000, 1750)
 GO
-INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (8, N'San Francisco', 6, 1500000, 1820)
+INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (8, N'San Francisco', 6, 1000000, 1820)
+GO
+INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (9, N'Seattle', 6, 730000, 1820)
+GO
+INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (10, N'Altanta', 6, 506000, 1800)
+GO
+INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (11, N'Indianapolis', 6, 580000, 1850)
+GO
+INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (12, N'Baltimore', 6, 585000, 1780)
+GO
+INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (13, N'Detroit', 6, 660000, 1820)
+GO
+INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (14, N'Foxboro', 6, 78000, 1800)
+GO
+INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (15, N'Los Angeles', 6, 1000000, 1780)
 GO
 SET IDENTITY_INSERT [dbo].[Ville] OFF
 GO
