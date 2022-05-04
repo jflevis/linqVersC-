@@ -17,10 +17,9 @@ namespace Linq
             var resultat1 = ObtenirEquipesParConference(1);
             foreach (var equipe in resultat1)
                 System.Console.WriteLine(equipe.Nom + " " + equipe.IdVille);
-            System.Console.WriteLine("===================== en lambda ci-dessous les équipes de la conférence 1");
 
-            //Exercice d'exécuter en lambda ObtenirEquipesParConference(1);
-           var resultat2 = ObtenirEquipesParConferenceLambda(1);
+            System.Console.WriteLine("===================== en lambda ci-dessous les équipes de la conférence 2");
+           var resultat2 = ObtenirEquipesParConferenceLambda(2);
             foreach (var equipe in resultat2)
                 System.Console.WriteLine(equipe.Nom + " " + equipe.IdVille);
 
@@ -32,17 +31,27 @@ namespace Linq
             var resultat4 = ObtenirNombreEquipesParEtatLambda(2);
             System.Console.WriteLine(resultat4);
 
-            System.Console.WriteLine("===================== en standard ci-dessous la liste des equipes crees avant 1950");
-            var resultat5 = ObtenirListeEquipesCreeesAvant1950(1950);
+            System.Console.WriteLine("===================== en standard ci-dessous la liste des equipes crees avant 1960");
+            var resultat5 = ObtenirListeEquipesCreeesAvant1950(1960);
             foreach (var equipe in resultat5) {
                 System.Console.WriteLine(equipe.Nom + " a été créée en " + equipe.AnneeFondation);
             }
                
 
-            System.Console.WriteLine("===================== en lambda ci-dessous la liste des equipes crees avant 1950");
-            var resultat6 = ObtenirListeEquipesCreeesAvant1950Lambda(1950);
+            System.Console.WriteLine("===================== en lambda ci-dessous la liste des equipes crees avant 1972");
+            var resultat6 = ObtenirListeEquipesCreeesAvant1950Lambda(1972);
             foreach (var equipe in resultat6)
                 System.Console.WriteLine(equipe.Nom + " a été créée en " + equipe.AnneeFondation);
+
+            System.Console.WriteLine("===================== en standard ci-dessous la liste des conférence ");
+            var resultat7 = ObtenirListeConferences();
+            foreach (var conference in resultat7)
+                System.Console.WriteLine("La conférence no: "+conference.IdConference+" est: "+ conference.Nom);
+            System.Console.WriteLine("===================== en lambda ci-dessous la liste des conférence ");
+
+            var resultat8 = ObtenirListeConferencesLambda();
+            foreach (var conference in resultat8)
+                System.Console.WriteLine("La conférence no: " + conference.IdConference + " est: " + conference.Nom);
 
         }
 
@@ -84,6 +93,17 @@ namespace Linq
         {
             return Context.Equipes.Where(e => e.AnneeFondation < anneeFondation).OrderBy(e =>e.Nom);
 
+        }
+        static IQueryable<Conference> ObtenirListeConferences()
+        {
+            return from conference in Context.Conferences
+                   where conference.IdConference > 0
+                   orderby conference.Nom 
+                   select conference;
+        }
+        static IQueryable<Conference> ObtenirListeConferencesLambda()
+        {
+            return Context.Conferences.Where(e => e.IdConference > 0).OrderBy(e => e.Nom);
         }
 
     }
