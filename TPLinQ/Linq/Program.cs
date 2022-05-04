@@ -47,10 +47,16 @@ namespace Linq
             var resultat7 = ObtenirListeConferences();
             foreach (var conference in resultat7)
                 System.Console.WriteLine("La conférence no: "+conference.IdConference+" est: "+ conference.Nom);
+
             System.Console.WriteLine("===================== en lambda ci-dessous la liste des conférence ");
 
             var resultat8 = ObtenirListeConferencesLambda();
             foreach (var conference in resultat8)
+                System.Console.WriteLine("La conférence no: " + conference.IdConference + " est: " + conference.Nom);
+
+            System.Console.WriteLine("===================== en standard ci-dessous la liste des villes par conférence ");
+            var resultat9 = ObtenirListeVilleConferences();
+            foreach (var conference in resultat7)
                 System.Console.WriteLine("La conférence no: " + conference.IdConference + " est: " + conference.Nom);
 
         }
@@ -106,5 +112,11 @@ namespace Linq
             return Context.Conferences.Where(e => e.IdConference > 0).OrderBy(e => e.Nom);
         }
 
+        static IQueryable<Ville> ObtenirListeVilleConferences()
+        {
+
+            return from ville in Context.Villes
+                   orderby ville.Nom group Context.Conferences.
+        }
     }
 }
