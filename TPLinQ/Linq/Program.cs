@@ -63,8 +63,9 @@ namespace Linq
 
             System.Console.WriteLine("===================== en standard ci-dessous la liste des équipe par ordre decroissant population  ");
             ObtenirListeVillePopulationDecroissant();
-  
 
+            System.Console.WriteLine("===================== en standard ci-dessous la liste des joueurs/equipe/ville/etat/alpha joueur ");
+            ObtenirListeJoueurNomAsc();
 
         }
 
@@ -147,36 +148,40 @@ namespace Linq
         static void ObtenirListeVillePopulationDecroissant()
         {
             var listVillePopDesc = from ville in Context.Villes
-                                   join equipe in Context.Equipes
-                                   on ville.IdVille equals equipe.IdVille
-                                   join conference in Context.Conferences
-                                   on equipe.IdConference equals conference.IdConference
-                                   join etat in Context.Etats
-                                   on ville.IdEtat equals etat.IdEtat
-                                   orderby ville.Population descending
-                                   select new
-                                   {
-                                       nomEquipe = equipe.Nom,
-                                       villeNom = ville.Nom,
-                                       etatNom = etat.Nom,
-                                       conferenceNom = conference.Nom,
-                                       pop = ville.Population
-                                   };
+            join equipe in Context.Equipes
+            on ville.IdVille equals equipe.IdVille
+            join conference in Context.Conferences
+            on equipe.IdConference equals conference.IdConference
+            join etat in Context.Etats
+            on ville.IdEtat equals etat.IdEtat
+            orderby ville.Population descending
+            select new
+            {
+                nomEquipe = equipe.Nom,
+                villeNom = ville.Nom,
+                etatNom = etat.Nom,
+                conferenceNom = conference.Nom,
+                pop = ville.Population
+            };
             foreach(var ville in listVillePopDesc)
             {
                 System.Console.WriteLine(ville.nomEquipe + " de " + ville.villeNom + " etat: " + ville.etatNom + " conférence: " + ville.conferenceNom + " avec population de: " + ville.pop + " habitants");
             }
         }
-        /*    static void ObtenirListeVillePopulationDecroissantLambda()
-            {
-                var listeVilleLambda = Context.Villes.Join(Context.Equipes, v => v.IdVille, e => e.IdVille, (v, e) => new { v, e }).Join(Context.Conferences, c => c.e.IdConference, ce => ce.IdConference, (c, ce) => new
-                {
-                    c,
-                    ce
-                }).Join(Context.Etats,et => et.c.v.IdEtat,etv =>etv.IdEtat(et,etv)) => new{et,etv }.OrderBy(ce => ce.ce.Nom).OrderBy(e => e.c.v.Nom).ToList();
-                foreach (var ville in listeVilleLambda)
-                    System.Console.WriteLine(ville.c.e.Nom + " de " + ville.c.v.Nom + " population de: " + ville.c.v.Population + " habitants dans la conférérence " + ville.ce.Nom);
-            }*/
+        static void ObtenirListeJoueurNomAsc()
+        {
+            var listJoueurNomAsc = from joueur in Context.JoueurEquipes
+                                   join j in Context.Joueurs
+                                   on joueur.IdJoueur equals j.IdJoueur
+                                   select new
+                                   {
+                                       joueurNom = j.Prenom + " " + j.Nom,
+                                       idEquipe = joueur.IdEquipeNavigation,
+                                       
+                                   };
+            foreach (var joueurNom in listJoueurNomAsc)
+                System.Console.WriteLine(joueurNom.joueurNom +" "+ joueurNom.idEquipe);
+        }
     }
 }
 /*
