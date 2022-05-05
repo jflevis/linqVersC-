@@ -55,9 +55,9 @@ namespace Linq
                 System.Console.WriteLine("La conférence no: " + conference.IdConference + " est: " + conference.Nom);
 
             System.Console.WriteLine("===================== en standard ci-dessous la liste des villes par conférence ");
-            var resultat9 = ObtenirListeVilleConferences();
-            foreach (var conference in resultat7)
-                System.Console.WriteLine("La conférence no: " + conference.IdConference + " est: " + conference.Nom);
+             ObtenirListeVilleConferences();
+            System.Console.WriteLine("===================== en lambda ci-dessous la liste des villes par conférence ");
+            ObtenirListeVilleConferencesLambda();
 
         }
 
@@ -112,11 +112,30 @@ namespace Linq
             return Context.Conferences.Where(e => e.IdConference > 0).OrderBy(e => e.Nom);
         }
 
-        static IQueryable<Ville> ObtenirListeVilleConferences()
+        static void ObtenirListeVilleConferences()
         {
-
-            return from ville in Context.Villes
-                   orderby ville.Nom group Context.Conferences.
+          var listeVille =from ville in Context.Villes
+                   join equipe in Context.Equipes
+                   on ville.IdVille equals equipe.IdVille
+                   join conference in Context.Conferences on equipe.IdConference equals conference.IdConference
+                   select new
+                   {
+                       nomVille = ville.Nom,
+                       nomConference = conference.Nom
+                   };
+            foreach (var ville in listeVille)
+                System.Console.WriteLine(ville.nomVille +" est dans la conférence: "+ville.nomConference);
+        }
+       static void  ObtenirListeVilleConferencesLambda()
+        {
+            var listeVille = Context.Villes.Join(Context.Equipes, villeId => villeId.IdVille, equipeVilleId => equipeVilleId.IdVille, (villeId, equipeVilleId) => new
+            {
+                nomVille = villeId.Nom,
+                nomEquipe = equipeVilleId.Nom,
+            
+            });
+            foreach (var ville in listeVille)
+                System.Console.WriteLine(ville.nomEquipe+" de "+ville.nomVille) ;
         }
     }
 }
