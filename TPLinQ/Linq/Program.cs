@@ -172,15 +172,23 @@ namespace Linq
         {
             var listJoueurNomAsc = from joueur in Context.JoueurEquipes
                                    join j in Context.Joueurs
-                                   on joueur.IdJoueur equals j.IdJoueur
+                                   on joueur.IdJoueur equals j.IdJoueur orderby j.Nom,j.Prenom
+                                   join equipe in Context.Equipes
+                                   on joueur.IdEquipe equals equipe.IdEquipe
+                                   join ville in Context.Villes
+                                   on  equipe.IdVille equals ville.IdVille
+                                   join etat in Context.Etats
+                                   on ville.IdEtat equals etat.IdEtat orderby j.Nom,j.Prenom
                                    select new
                                    {
                                        joueurNom = j.Prenom + " " + j.Nom,
                                        idEquipe = joueur.IdEquipeNavigation,
-                                       
+                                       nomEquipe = equipe.Nom,
+                                       nomVille = ville.Nom,
+                                       nomEtat = etat.Nom
                                    };
             foreach (var joueurNom in listJoueurNomAsc)
-                System.Console.WriteLine(joueurNom.joueurNom +" "+ joueurNom.idEquipe);
+                System.Console.WriteLine(joueurNom.joueurNom +"de l'équipe "+joueurNom.idEquipe.IdEquipe+" de "+ joueurNom.nomVille+" dans l'état de "+ joueurNom.nomEtat);
         }
     }
 }
