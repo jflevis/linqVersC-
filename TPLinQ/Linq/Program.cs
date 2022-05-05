@@ -67,6 +67,16 @@ namespace Linq
             System.Console.WriteLine("===================== en standard ci-dessous la liste des joueurs/equipe/ville/etat/alpha joueur ");
             ObtenirListeJoueurNomAsc();
 
+            var equipeListe = ObtenirListeEquipes();
+            foreach(var e in equipeListe)
+                System.Console.WriteLine(e.Nom);
+
+            System.Console.WriteLine("Choissez une équipe?");
+            string villeChoisie = Console.ReadLine();
+
+            System.Console.WriteLine("===================== en standard ci-dessous équipe choisie par le nom ");
+            ObtenirEquipeNom(villeChoisie);
+
         }
 
    
@@ -190,10 +200,36 @@ namespace Linq
             foreach (var joueurNom in listJoueurNomAsc)
                 System.Console.WriteLine(joueurNom.joueurNom +"de l'équipe "+joueurNom.idEquipe.IdEquipe+" de "+ joueurNom.nomVille+" dans l'état de "+ joueurNom.nomEtat);
         }
+        static void ObtenirEquipeNom(string equipe)
+        {
+            var equipeNom = from e in Context.Equipes
+                            join v in Context.Villes
+                            on e.IdVille equals v.IdVille
+                            join c in Context.Conferences
+                            on e.IdConference equals c.IdConference
+                            where e.Nom == equipe
+                            select new
+                            {
+                                nomEquipe = e.Nom,
+                                nomVille = v.Nom,
+                                nomConference = c.Nom
+                            };
+            foreach(var eq in equipeNom)
+            {
+                System.Console.WriteLine("Les "+eq.nomEquipe+" de "+eq.nomVille+" sont dans la conférence: "+eq.nomConference);
+
+            }
+        }
+        static IQueryable<Equipe> ObtenirListeEquipes()
+        {
+            return from eq in Context.Equipes
+                   where eq.IdEquipe > 0
+                   orderby eq.Nom
+                   select eq;
+        }
     }
 }
 /*
- * 
  * https://www.c-sharpcorner.com/article/writing-complex-queries-using-linq-and-lambda/
  * //Using linq,  
 var result1 = from order in context.OrderMasters  

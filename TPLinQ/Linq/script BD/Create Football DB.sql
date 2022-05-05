@@ -186,11 +186,11 @@ INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Con
 GO
 INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (3, N'Broncos', 1960, 3, 1, N'Orange Crush')
 GO
-INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (4, N'Giants', 1925, 4, 2, N'Big Blue')
+INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (4, N'Giants', 1925, 5, 2, N'Big Blue')
 GO
 INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (5, N'Bills', 1960, 5, 1, NULL)
 GO
-INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (6, N'Jets', 1961, 5, 1, N'Gros Jets')
+INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (6, N'Jets', 1961, 4, 1, N'Gros Jets')
 GO
 INSERT [dbo].[Equipe] ([id_Equipe], [Nom], [AnneeFondation], [id_Ville], [id_Conference], [Surnom]) VALUES (7, N'Stealers', 1950, 6, 1, N'Big Pitts')
 GO
@@ -373,6 +373,8 @@ GO
 INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (14, N'Foxboro', 6, 78000, 1800)
 GO
 INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (15, N'Los Angeles', 6, 1000000, 1780)
+GO
+INSERT [dbo].[Ville] ([id_Ville], [Nom], [id_Etat], [Population], [AnneeFondation]) VALUES (16, N'East Rutherford', 4, 500000, 1850)
 GO
 SET IDENTITY_INSERT [dbo].[Ville] OFF
 GO
