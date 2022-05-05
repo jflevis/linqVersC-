@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Linq.Models;
 
@@ -59,7 +60,12 @@ namespace Linq
 
             System.Console.WriteLine("===================== en lambda ci-dessous la liste des villes par conférence ");
             ObtenirListeVilleConferencesLambda();
- 
+
+            System.Console.WriteLine("===================== en standard ci-dessous la liste des équipe par ordre decroissant population  ");
+            ObtenirListeVillePopulationDecroissant();
+  
+
+
         }
 
    
@@ -119,7 +125,8 @@ namespace Linq
                    join equipe in Context.Equipes
                    on ville.IdVille equals equipe.IdVille
                    join conference in Context.Conferences on equipe.IdConference equals conference.IdConference
-                   select new
+                          orderby conference.Nom, ville.Nom
+                          select new
                    {
                        nomVille = ville.Nom,
                        nomConference = conference.Nom
@@ -129,34 +136,47 @@ namespace Linq
         }
        static void  ObtenirListeVilleConferencesLambda()
         {
-            var listeVille = Context.Villes.Join(Context.Equipes, villeId => villeId.IdVille, equipeVilleId => equipeVilleId.IdVille, (villeId, equipeVilleId) => new
-            {
-                nomVille = villeId.Nom,
-                nomEquipe = equipeVilleId.Nom,
-            
-            });
-            foreach (var ville in listeVille)
-                System.Console.WriteLine(ville.nomEquipe+" de "+ville.nomVille) ;
-            System.Console.WriteLine("===================== en lambda ci-dessous la liste des villes par conférence ");
-
-            var listeVilleConf = Context.Equipes.Join(Context.Conferences, equipeConf => equipeConf.IdConference, conferEquipe => conferEquipe.IdConference, (equipeConf, conferEquipe) => new
-            {
-               nomEquipe = equipeConf.Nom,
-               nomConference =conferEquipe.Nom
-            }).ToList();
-            foreach (var ville in listeVille)
-            System.Console.WriteLine(ville.nomEquipe + " de " + ville.nomVille);
-
-            System.Console.WriteLine("===================== en lambda ci-dessous la liste des villes par conférence stackOverflow");
-
             var listeVilleLambda = Context.Villes.Join(Context.Equipes, v => v.IdVille, e => e.IdVille, (v, e) => new { v, e }).Join(Context.Conferences, c => c.e.IdConference, ce => ce.IdConference, (c, ce) => new
             {
                 c,
                 ce
-            }).ToList();
+            }).OrderBy(ce => ce.ce.Nom).OrderBy(e =>e.c.v.Nom).ToList();
             foreach (var ville in listeVilleLambda)
-                System.Console.WriteLine(ville.c.e.Nom + " de " + ville.c.v.Nom + "dans la conférérence" + ville.ce.Nom);
+                System.Console.WriteLine(ville.c.e.Nom + " de " + ville.c.v.Nom +" population de: "+ville.c.v.Population + " habitants dans la conférérence " + ville.ce.Nom);
         }
+        static void ObtenirListeVillePopulationDecroissant()
+        {
+            var listVillePopDesc = from ville in Context.Villes
+                                   join equipe in Context.Equipes
+                                   on ville.IdVille equals equipe.IdVille
+                                   join conference in Context.Conferences
+                                   on equipe.IdConference equals conference.IdConference
+                                   join etat in Context.Etats
+                                   on ville.IdEtat equals etat.IdEtat
+                                   orderby ville.Population descending
+                                   select new
+                                   {
+                                       nomEquipe = equipe.Nom,
+                                       villeNom = ville.Nom,
+                                       etatNom = etat.Nom,
+                                       conferenceNom = conference.Nom,
+                                       pop = ville.Population
+                                   };
+            foreach(var ville in listVillePopDesc)
+            {
+                System.Console.WriteLine(ville.nomEquipe + " de " + ville.villeNom + " etat: " + ville.etatNom + " conférence: " + ville.conferenceNom + " avec population de: " + ville.pop + " habitants");
+            }
+        }
+        /*    static void ObtenirListeVillePopulationDecroissantLambda()
+            {
+                var listeVilleLambda = Context.Villes.Join(Context.Equipes, v => v.IdVille, e => e.IdVille, (v, e) => new { v, e }).Join(Context.Conferences, c => c.e.IdConference, ce => ce.IdConference, (c, ce) => new
+                {
+                    c,
+                    ce
+                }).Join(Context.Etats,et => et.c.v.IdEtat,etv =>etv.IdEtat(et,etv)) => new{et,etv }.OrderBy(ce => ce.ce.Nom).OrderBy(e => e.c.v.Nom).ToList();
+                foreach (var ville in listeVilleLambda)
+                    System.Console.WriteLine(ville.c.e.Nom + " de " + ville.c.v.Nom + " population de: " + ville.c.v.Population + " habitants dans la conférérence " + ville.ce.Nom);
+            }*/
     }
 }
 /*
