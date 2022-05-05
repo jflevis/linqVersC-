@@ -49,22 +49,22 @@ namespace Linq
             foreach (var conference in resultat7)
                 System.Console.WriteLine("La conférence no: "+conference.IdConference+" est: "+ conference.Nom);
 
-            System.Console.WriteLine("===================== en lambda ci-dessous la liste des conférence ");
+            System.Console.WriteLine("A Lambda===================== en lambda ci-dessous la liste des conférence ");
 
             var resultat8 = ObtenirListeConferencesLambda();
             foreach (var conference in resultat8)
                 System.Console.WriteLine("La conférence no: " + conference.IdConference + " est: " + conference.Nom);
 
-            System.Console.WriteLine("===================== en standard ci-dessous la liste des villes par conférence ");
+            System.Console.WriteLine("B===================== en standard ci-dessous la liste des villes par conférence ");
              ObtenirListeVilleConferences();
 
-            System.Console.WriteLine("===================== en lambda ci-dessous la liste des villes par conférence ");
+            System.Console.WriteLine("B Lambda===================== en lambda ci-dessous la liste des villes par conférence ");
             ObtenirListeVilleConferencesLambda();
 
-            System.Console.WriteLine("===================== en standard ci-dessous la liste des équipe par ordre decroissant population  ");
+            System.Console.WriteLine("C===================== en standard ci-dessous la liste des équipe par ordre decroissant population  ");
             ObtenirListeVillePopulationDecroissant();
 
-            System.Console.WriteLine("===================== en standard ci-dessous la liste des joueurs/equipe/ville/etat/alpha joueur ");
+            System.Console.WriteLine("D===================== en standard ci-dessous la liste des joueurs/equipe/ville/etat/alpha joueur ");
             ObtenirListeJoueurNomAsc();
 
             var equipeListe = ObtenirListeEquipes();
@@ -73,15 +73,31 @@ namespace Linq
 
             System.Console.WriteLine("Choissez une équipe?");
             string villeChoisie = Console.ReadLine();
-            System.Console.WriteLine("===================== en standard ci-dessous équipe choisie par le nom ");
+            System.Console.WriteLine("E===================== en standard ci-dessous équipe choisie par le nom ");
             ObtenirEquipeNom(villeChoisie);
 
             System.Console.WriteLine("Choissez une année pour rechercher >=");
             int anneeChoisie = Convert.ToInt32(Console.ReadLine());
         
-            System.Console.WriteLine("===================== en standard les joeurs qui ont débuté >= à l'année choisie ");
+            System.Console.WriteLine("F===================== en standard les joeurs qui ont débuté >= à l'année choisie ");
             ObtenirJoueursAnnee(anneeChoisie);
 
+            System.Console.WriteLine("Choisir une équipe pour lister ses joueurs");
+            equipeListe = ObtenirListeEquipes();
+            foreach (var e in equipeListe)
+            System.Console.WriteLine(e.Nom);
+
+            string nomEquipe = Console.ReadLine();
+            System.Console.WriteLine("G===================== en standard joueurs par équipes saisie ");
+            ObtenirJoueursUneEquipe(nomEquipe);
+
+            System.Console.WriteLine("Choisir une date de naissance <=");
+            DateTime joueurDDN = DateTime.Parse(Console.ReadLine());
+            System.Console.WriteLine("Indiquer la premier lettre du prénom d'un joueur");
+            char joueurFirstLetterPrenom = Char.Parse(Console.ReadLine());
+
+            System.Console.WriteLine("H===================== prenom de joueur commencant par et ddn <= saisie ");
+            ObtenirJoueurFirstLetterDDN(joueurDDN, joueurFirstLetterPrenom);
         }
 
    
@@ -235,28 +251,68 @@ namespace Linq
         static void ObtenirJoueursAnnee(int anneechoisie)
         {
             var listJoueurAnneeebut = from joueur in Context.JoueurEquipes
-                                   join j in Context.Joueurs
-                                   on joueur.IdJoueur equals j.IdJoueur
-                                   orderby j.Nom, j.Prenom
-                                   join equipe in Context.Equipes
-                                   on joueur.IdEquipe equals equipe.IdEquipe
-                                   join ville in Context.Villes
-                                   on equipe.IdVille equals ville.IdVille
-                                   join etat in Context.Etats
-                                   on ville.IdEtat equals etat.IdEtat
-                                   where joueur.DateDebut >= anneechoisie
-                                   orderby j.Nom, j.Prenom
-                                   select new
-                                   {
-                                       joueurNom = j.Prenom + " " + j.Nom,
-                                       idEquipe = joueur.IdEquipeNavigation,
-                                       nomEquipe = equipe.Nom,
-                                       nomVille = ville.Nom,
-                                       nomEtat = etat.Nom,
-                                       dateDebut =joueur.DateDebut
-                                   };
+            join j in Context.Joueurs
+            on joueur.IdJoueur equals j.IdJoueur
+            orderby j.Nom, j.Prenom
+            join equipe in Context.Equipes
+            on joueur.IdEquipe equals equipe.IdEquipe
+            join ville in Context.Villes
+            on equipe.IdVille equals ville.IdVille
+            join etat in Context.Etats
+            on ville.IdEtat equals etat.IdEtat
+            where joueur.DateDebut >= anneechoisie
+            orderby j.Nom, j.Prenom
+            select new
+            {
+                joueurNom = j.Prenom + " " + j.Nom,
+                idEquipe = joueur.IdEquipeNavigation,
+                nomEquipe = equipe.Nom,
+                nomVille = ville.Nom,
+                nomEtat = etat.Nom,
+                dateDebut =joueur.DateDebut
+            };
             foreach (var joueurNom in listJoueurAnneeebut)
                 System.Console.WriteLine(joueurNom.joueurNom + " de l'équipe " + joueurNom.idEquipe.Nom + " de " + joueurNom.nomVille + "a débuté en " +joueurNom.dateDebut);
+        }
+
+        static void ObtenirJoueursUneEquipe(string nomEquipe)
+        {
+            var listeJoueurUneEquipe = from j in Context.Joueurs
+                join jE in Context.JoueurEquipes
+                on j.IdJoueur equals jE.IdJoueur
+                join e in Context.Equipes
+                on jE.IdEquipe equals e.IdEquipe
+                where e.Nom == nomEquipe
+                orderby j.Nom, j.Prenom
+                select new
+                {
+                    joueurPrenom = j.Prenom,
+                    joueurNom = j.Nom,
+                    equipeNom = e.Nom,
+                    joueurDDN =j.DateNaissance
+                };
+            foreach (var j in listeJoueurUneEquipe)
+                System.Console.WriteLine(j.joueurPrenom +" "+ j.joueurNom + " des " + nomEquipe );
+        }
+        static void ObtenirJoueurFirstLetterDDN(DateTime ddn,char firstLetterPrenom)
+        {
+            var listeJoueurFirstLettreDDN = from j in Context.Joueurs
+                join jE in Context.JoueurEquipes
+                on j.IdJoueur equals jE.IdJoueur
+                join e in Context.Equipes
+                on jE.IdEquipe equals e.IdEquipe
+                where j.DateNaissance <= ddn && j.Prenom[0] == firstLetterPrenom
+                select new
+                {
+                    joueurNon = j.Prenom + " " + j.Nom,
+                    equipeNom = e.Nom,
+                    dateNaiss = j.DateNaissance
+                };
+            System.Console.WriteLine(ddn.ToString() + " " + firstLetterPrenom +" date de naissance:");
+
+
+          // foreach(var joueur in listeJoueurFirstLettreDDN)
+           //     System.Console.WriteLine(joueur.joueurNon+" des "+joueur.equipeNom +" date de naissance: "+joueur.dateNaiss);
         }
     }
 }
