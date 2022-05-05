@@ -73,9 +73,14 @@ namespace Linq
 
             System.Console.WriteLine("Choissez une équipe?");
             string villeChoisie = Console.ReadLine();
-
             System.Console.WriteLine("===================== en standard ci-dessous équipe choisie par le nom ");
             ObtenirEquipeNom(villeChoisie);
+
+            System.Console.WriteLine("Choissez une année pour rechercher >=");
+            int anneeChoisie = Convert.ToInt32(Console.ReadLine());
+        
+            System.Console.WriteLine("===================== en standard les joeurs qui ont débuté >= à l'année choisie ");
+            ObtenirJoueursAnnee(anneeChoisie);
 
         }
 
@@ -226,6 +231,32 @@ namespace Linq
                    where eq.IdEquipe > 0
                    orderby eq.Nom
                    select eq;
+        }
+        static void ObtenirJoueursAnnee(int anneechoisie)
+        {
+            var listJoueurAnneeebut = from joueur in Context.JoueurEquipes
+                                   join j in Context.Joueurs
+                                   on joueur.IdJoueur equals j.IdJoueur
+                                   orderby j.Nom, j.Prenom
+                                   join equipe in Context.Equipes
+                                   on joueur.IdEquipe equals equipe.IdEquipe
+                                   join ville in Context.Villes
+                                   on equipe.IdVille equals ville.IdVille
+                                   join etat in Context.Etats
+                                   on ville.IdEtat equals etat.IdEtat
+                                   where joueur.DateDebut >= anneechoisie
+                                   orderby j.Nom, j.Prenom
+                                   select new
+                                   {
+                                       joueurNom = j.Prenom + " " + j.Nom,
+                                       idEquipe = joueur.IdEquipeNavigation,
+                                       nomEquipe = equipe.Nom,
+                                       nomVille = ville.Nom,
+                                       nomEtat = etat.Nom,
+                                       dateDebut =joueur.DateDebut
+                                   };
+            foreach (var joueurNom in listJoueurAnneeebut)
+                System.Console.WriteLine(joueurNom.joueurNom + " de l'équipe " + joueurNom.idEquipe.Nom + " de " + joueurNom.nomVille + "a débuté en " +joueurNom.dateDebut);
         }
     }
 }
