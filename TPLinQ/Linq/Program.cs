@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Linq.Models;
 
@@ -9,6 +10,8 @@ namespace Linq
     class Program
     {
         private static FootballContext Context;
+  
+
         static void Main(string[] args)
         {
             Context = new FootballContext();
@@ -91,8 +94,8 @@ namespace Linq
             System.Console.WriteLine("G===================== en standard joueurs par équipes saisie ");
             ObtenirJoueursUneEquipe(nomEquipe);
 
-            System.Console.WriteLine("Choisir une date de naissance <=");
-            DateTime joueurDDN = DateTime.Parse(Console.ReadLine());
+            System.Console.WriteLine("Choisir une date de naissance <=  FORMAT YY/MM/JJ");
+            string joueurDDN = Console.ReadLine();
             System.Console.WriteLine("Indiquer la premier lettre du prénom d'un joueur");
             char joueurFirstLetterPrenom = Char.Parse(Console.ReadLine());
 
@@ -290,29 +293,29 @@ namespace Linq
                     joueurNom = j.Nom,
                     equipeNom = e.Nom,
                     joueurDDN =j.DateNaissance
-                };
+        };
             foreach (var j in listeJoueurUneEquipe)
                 System.Console.WriteLine(j.joueurPrenom +" "+ j.joueurNom + " des " + nomEquipe );
         }
-        static void ObtenirJoueurFirstLetterDDN(DateTime ddn,char firstLetterPrenom)
+        static void ObtenirJoueurFirstLetterDDN(string ddn,char firstLetterPrenom)
         {
+            DateTime datechoisie = DateTime.Parse(ddn);
             var listeJoueurFirstLettreDDN = from j in Context.Joueurs
                 join jE in Context.JoueurEquipes
                 on j.IdJoueur equals jE.IdJoueur
                 join e in Context.Equipes
                 on jE.IdEquipe equals e.IdEquipe
-                where j.DateNaissance <= ddn && j.Prenom[0] == firstLetterPrenom
+                where j.DateNaissance <= DateTime.Parse(ddn) && j.Prenom[0] == firstLetterPrenom
                 select new
                 {
                     joueurNon = j.Prenom + " " + j.Nom,
                     equipeNom = e.Nom,
-                    dateNaiss = j.DateNaissance
-                };
-            System.Console.WriteLine(ddn.ToString() + " " + firstLetterPrenom +" date de naissance:");
-
-
-          // foreach(var joueur in listeJoueurFirstLettreDDN)
-           //     System.Console.WriteLine(joueur.joueurNon+" des "+joueur.equipeNom +" date de naissance: "+joueur.dateNaiss);
+                    dateNaiss = j.DateNaissance,
+        };
+            foreach(var j in listeJoueurFirstLettreDDN)
+                System.Console.WriteLine(j.joueurNon +" des "+j.equipeNom+" dont la date de naisance est: "+j.dateNaiss);
+            // foreach(var joueur in listeJoueurFirstLettreDDN)
+            //     System.Console.WriteLine(joueur.joueurNon+" des "+joueur.equipeNom +" date de naissance: "+joueur.dateNaiss);
         }
     }
 }
