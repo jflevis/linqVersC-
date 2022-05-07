@@ -47,10 +47,10 @@ namespace Linq
             foreach (var equipe in resultat6)
                 System.Console.WriteLine(equipe.Nom + " a été créée en " + equipe.AnneeFondation);
 
-            System.Console.WriteLine("===================== en standard ci-dessous la liste des conférence ");
+            System.Console.WriteLine("\r\n" + "===================== en standard ci-dessous la liste des conférence ");
             var resultat7 = ObtenirListeConferences();
             foreach (var conference in resultat7)
-                System.Console.WriteLine("La conférence no: "+conference.IdConference+" est: "+ conference.Nom);
+                System.Console.WriteLine("\r\n" + "La conférence no: " +conference.IdConference+" est: "+ conference.Nom);
 
             System.Console.WriteLine("A Lambda===================== en lambda ci-dessous la liste des conférence ");
 
@@ -58,67 +58,73 @@ namespace Linq
             foreach (var conference in resultat8)
                 System.Console.WriteLine("La conférence no: " + conference.IdConference + " est: " + conference.Nom);
 
-            System.Console.WriteLine("B===================== en standard ci-dessous la liste des villes par conférence ");
+            System.Console.WriteLine("\r\n" + "B standard===================  ci-dessous la liste des villes par conférence ");
              ObtenirListeVilleConferences();
 
-            System.Console.WriteLine("B Lambda===================== en lambda ci-dessous la liste des villes par conférence ");
+            System.Console.WriteLine("\r\n" + "B Lambda===================== ci-dessous la liste des villes par conférence ");
             ObtenirListeVilleConferencesLambda();
 
-            System.Console.WriteLine("C===================== en standard ci-dessous la liste des équipe par ordre decroissant population  ");
+            System.Console.WriteLine("\r\n" + "C standard ===================  ci-dessous la liste des équipe par ordre decroissant population  ");
             ObtenirListeVillePopulationDecroissant();
 
-            System.Console.WriteLine("D===================== en standard ci-dessous la liste des joueurs/equipe/ville/etat/alpha joueur ");
+            System.Console.WriteLine("\r\n"+"C Lambda ===================  ci-dessous la liste des équipe par ordre decroissant population  ");
+            ObtenirListeVillePopulationDecroissantLambda();
+
+            System.Console.WriteLine("\r\n" + "D standard===================  ci-dessous la liste des joueurs/equipe/ville/etat/alpha joueur ");
             ObtenirListeJoueurNomAsc();
+
+            System.Console.WriteLine("\r\n" + "D lambda===================  ci-dessous la liste des joueurs/equipe/ville/etat/alpha joueur ");
+            ObtenirListeJoueurNomAscLambda();
 
             var equipeListe = ObtenirListeEquipes();
             foreach(var e in equipeListe)
                 System.Console.WriteLine(e.Nom);
 
-            System.Console.WriteLine("Choissez une équipe?");
+            System.Console.WriteLine("\r\n" + "Choissez une équipe?");
             string villeChoisie = Console.ReadLine();
-            System.Console.WriteLine("E===================== en standard ci-dessous équipe choisie par le nom ");
+            System.Console.WriteLine("\r\n" + "E  standard==================  ci-dessous équipe choisie par le nom ");
             ObtenirEquipeNom(villeChoisie);
 
-            System.Console.WriteLine("Choissez une année pour rechercher >=");
+            System.Console.WriteLine("\r\n" + "Choissez une année pour rechercher >=");
             int anneeChoisie = Convert.ToInt32(Console.ReadLine());
         
-            System.Console.WriteLine("F===================== en standard les joeurs qui ont débuté >= à l'année choisie ");
+            System.Console.WriteLine("\r\n" + "F standard===================  les joueurs qui ont débuté >= à l'année choisie ");
             ObtenirJoueursAnnee(anneeChoisie);
 
-            System.Console.WriteLine("Choisir une équipe pour lister ses joueurs");
+            System.Console.WriteLine("\r\n" + "Choisir une équipe pour lister ses joueurs");
             equipeListe = ObtenirListeEquipes();
             foreach (var e in equipeListe)
             System.Console.WriteLine(e.Nom);
 
             string nomEquipe = Console.ReadLine();
-            System.Console.WriteLine("G===================== en standard joueurs par équipes saisie ");
+            System.Console.WriteLine("\r\n" + "G standard  ================== en standard joueurs par équipes saisie ");
             ObtenirJoueursUneEquipe(nomEquipe);
 
-            System.Console.WriteLine("Choisir une date de naissance <=  FORMAT YY/MM/JJ");
+            System.Console.WriteLine("\r\n" + "Choisir une date de naissance <=  FORMAT YY/MM/JJ");
             string joueurDDN = Console.ReadLine();
             System.Console.WriteLine("Indiquer la premier lettre du prénom d'un joueur");
             char joueurFirstLetterPrenom = Char.Parse(Console.ReadLine());
 
-            System.Console.WriteLine("H===================== prenom de joueur commencant par et ddn <= saisie ");
-            ObtenirJoueurFirstLetterDDN(joueurDDN, joueurFirstLetterPrenom);
+            System.Console.WriteLine("\r\n" + "H standard =================== prenom de joueur commencant par et ddn <= saisie ");
+            //ObtenirJoueurFirstLetterDDN(joueurDDN, joueurFirstLetterPrenom);
         }
 
    
 
         // obtenir la liste des équipes dont l'identifiant de conférence correspond à celui reçu en paramètre
-        static IQueryable<Equipe> ObtenirEquipesParConference(int idConference)
+        static IQueryable<Equipe> ObtenirEquipesParConference(int idConference)  //A
         {
              return from equipe in Context.Equipes
                     where equipe.IdConference == idConference
                     select equipe;
         }
         //même chose en lambda :
-        private static IQueryable<Equipe> ObtenirEquipesParConferenceLambda(int IdConference)
+        private static IQueryable<Equipe> ObtenirEquipesParConferenceLambda(int IdConference) //A Lambda
         {
             return Context.Equipes.Where(e => e.IdConference == IdConference);
         }
 
-        //obtenir la liste des équipes dont la ville  est dans l'état passé en paramètre
+        //obtenir la liste des équipes dont la ville  est dans l'état passé en paramètre //B
         static int ObtenirNombreEquipesParEtat(int idEtat)
         {
             return (from equipe in Context.Equipes
@@ -126,7 +132,7 @@ namespace Linq
                     select equipe).Count();
             // les résultats sont triés en ordre croissant de nom d'équipe
         }
-        static int ObtenirNombreEquipesParEtatLambda(int idEtat)
+        static int ObtenirNombreEquipesParEtatLambda(int idEtat) //B Lmabda
         {
             return Context.Equipes.Count(e => e.IdVilleNavigation.IdEtat == idEtat);
         }
@@ -169,7 +175,7 @@ namespace Linq
             foreach (var ville in listeVille)
                 System.Console.WriteLine(ville.nomVille +" est dans la conférence: "+ville.nomConference);
         }
-       static void  ObtenirListeVilleConferencesLambda()
+       static void  ObtenirListeVilleConferencesLambda() //B lambda ville par conférence
         {
             var listeVilleLambda = Context.Villes.Join(Context.Equipes, v => v.IdVille, e => e.IdVille, (v, e) => new { v, e }).Join(Context.Conferences, c => c.e.IdConference, ce => ce.IdConference, (c, ce) => new
             {
@@ -178,8 +184,10 @@ namespace Linq
             }).OrderBy(ce => ce.ce.Nom).OrderBy(e =>e.c.v.Nom).ToList();
             foreach (var ville in listeVilleLambda)
                 System.Console.WriteLine(ville.c.e.Nom + " de " + ville.c.v.Nom +" population de: "+ville.c.v.Population + " habitants dans la conférérence " + ville.ce.Nom);
+
+          
         }
-        static void ObtenirListeVillePopulationDecroissant()
+        static void ObtenirListeVillePopulationDecroissant() //C ville ordre decroissant population
         {
             var listVillePopDesc = from ville in Context.Villes
             join equipe in Context.Equipes
@@ -202,7 +210,17 @@ namespace Linq
                 System.Console.WriteLine(ville.nomEquipe + " de " + ville.villeNom + " etat: " + ville.etatNom + " conférence: " + ville.conferenceNom + " avec population de: " + ville.pop + " habitants");
             }
         }
-        static void ObtenirListeJoueurNomAsc()
+
+        static void ObtenirListeVillePopulationDecroissantLambda() //C lambda ville ordre decroissant population
+        {
+            var listEtatConfPop3 = Context.Villes.Join(Context.Etats, v => v.IdEtat, et => et.IdEtat, (v, et) => new { v, et })
+                .Join(Context.Equipes, eq => eq.v.IdEtat, veq => veq.IdVille, (eq, veq) => new { eq, veq })
+                .Join(Context.Conferences,cf=>cf.veq.IdConference,eqconf =>eqconf.IdConference,(cf,eqconf)=>new {cf,eqconf})
+                .OrderByDescending(c =>c.cf.eq.v.Population).ToList();
+            foreach (var villeEtat in listEtatConfPop3)
+                System.Console.WriteLine( villeEtat.cf.veq.Nom + " de " + villeEtat.cf.eq.v.Nom + " dans l'etat de " + villeEtat.cf.eq.et.Nom + ", de: "+villeEtat.eqconf.Nom+ ". La ville a une population de: " + villeEtat.cf.eq.v.Population);
+        }
+        static void ObtenirListeJoueurNomAsc() //A
         {
             var listJoueurNomAsc = from joueur in Context.JoueurEquipes
                                    join j in Context.Joueurs
@@ -222,7 +240,19 @@ namespace Linq
                                        nomEtat = etat.Nom
                                    };
             foreach (var joueurNom in listJoueurNomAsc)
-                System.Console.WriteLine(joueurNom.joueurNom +"de l'équipe "+joueurNom.idEquipe.IdEquipe+" de "+ joueurNom.nomVille+" dans l'état de "+ joueurNom.nomEtat);
+                System.Console.WriteLine(joueurNom.joueurNom +"de l'équipe "+joueurNom.idEquipe.Nom+" de "+ joueurNom.nomVille+" dans l'état de "+ joueurNom.nomEtat);
+        }
+
+        static void ObtenirListeJoueurNomAscLambda()
+        {
+            var joueurEquipeLambda = Context.JoueurEquipes.Join(Context.Joueurs, jE => jE.IdJoueur, j => j.IdJoueur, (jE, j) => new { jE, j })
+                .Join(Context.Equipes, jeq => jeq.jE.IdEquipe, eq => eq.IdEquipe, (jeq, eq) => new { jeq, eq })
+                .Join(Context.Villes, jVille => jVille.eq.IdVille, v => v.IdVille, (jVIlle, v) => new { jVIlle, v })
+                .Join (Context.Etats, jVEtat => jVEtat.v.IdEtat, etat => etat.IdEtat, (jVEtat, etat) => new { jVEtat, etat })
+                .OrderBy(joueurTri => joueurTri.jVEtat.jVIlle.jeq.j.Nom)
+                .OrderBy(joueurTri => joueurTri.jVEtat.jVIlle.jeq.j.Prenom).ToList();
+            foreach (var joueur in joueurEquipeLambda)
+                System.Console.WriteLine(joueur.jVEtat.jVIlle.jeq.j.Prenom + " " + joueur.jVEtat.jVIlle.jeq.j.Nom + " des " + joueur.jVEtat.jVIlle.eq.Nom + " de " + joueur.jVEtat.v.Nom + " etat: " + joueur.etat.Nom);
         }
         static void ObtenirEquipeNom(string equipe)
         {
@@ -297,7 +327,7 @@ namespace Linq
             foreach (var j in listeJoueurUneEquipe)
                 System.Console.WriteLine(j.joueurPrenom +" "+ j.joueurNom + " des " + nomEquipe );
         }
-        static void ObtenirJoueurFirstLetterDDN(string ddn, char firstLetterPrenom)
+   /*     static void ObtenirJoueurFirstLetterDDN(string ddn, char firstLetterPrenom)
         {
             DateTime datechoisie = DateTime.Parse(ddn);
             var listeJoueurFirstLettreDDN = from j in Context.Joueurs
@@ -316,7 +346,7 @@ namespace Linq
                 System.Console.WriteLine(j.joueurNon +" des "+j.equipeNom+" dont la date de naisance est: "+j.dateNaiss);
             // foreach(var joueur in listeJoueurFirstLettreDDN)
             //     System.Console.WriteLine(joueur.joueurNon+" des "+joueur.equipeNom +" date de naissance: "+joueur.dateNaiss);
-        }
+        }*/
     }
 }
 /*
