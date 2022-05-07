@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Linq"
+    "\\Models",
+    "\\script BD"
   ],
-  "SelectedNode": "\\Linq\\Program.cs",
+  "SelectedNode": "\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

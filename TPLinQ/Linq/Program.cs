@@ -297,7 +297,7 @@ namespace Linq
             foreach (var j in listeJoueurUneEquipe)
                 System.Console.WriteLine(j.joueurPrenom +" "+ j.joueurNom + " des " + nomEquipe );
         }
-        static void ObtenirJoueurFirstLetterDDN(string ddn,char firstLetterPrenom)
+        static void ObtenirJoueurFirstLetterDDN(string ddn, char firstLetterPrenom)
         {
             DateTime datechoisie = DateTime.Parse(ddn);
             var listeJoueurFirstLettreDDN = from j in Context.Joueurs
@@ -310,7 +310,7 @@ namespace Linq
                 {
                     joueurNon = j.Prenom + " " + j.Nom,
                     equipeNom = e.Nom,
-                    dateNaiss = j.DateNaissance,
+                    dateNaiss = DateTime.Parse(j.DateNaissance)
         };
             foreach(var j in listeJoueurFirstLettreDDN)
                 System.Console.WriteLine(j.joueurNon +" des "+j.equipeNom+" dont la date de naisance est: "+j.dateNaiss);
